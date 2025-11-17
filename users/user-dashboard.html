@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONE-TiP - Dashboard</title>
+    <link rel="stylesheet" href="../assets/style.css">
+    <link rel="stylesheet" href="../assets/dashboard.css">
+</head>
+
+<body>
+    <!-- 
+    Backend Integration Notes:
+    - Add CSRF token meta tag for all AJAX requests
+    - User session validation required for this page
+    - Redirect to login if not authenticated
+    -->
+    <meta name="csrf-token" content="<?php echo csrf_token(); ?>">
+
+    <!-- Navigation Header -->
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-section">
+                <img src="../assets/Images/LOGO-LONG.png" alt="ONE-TiP" class="header-logo">
+            </div>
+
+            <!-- Global Search Bar -->
+            <div class="search-section">
+                <!-- Backend: Search endpoint should handle marketplace + services -->
+                <input type="text" id="globalSearch" placeholder="Search marketplace and services..."
+                    class="search-input">
+                <button type="button" class="search-btn" id="searchBtn">
+                    <img src="../assets/Images/grey-search-bar.svg" alt="Search" class="search-icon">
+                </button>
+            </div>
+
+            <!-- User Controls -->
+            <div class="user-section">
+                <button type="button" class="btn-primary create-post-btn" id="createPostBtn">+ Create Post</button>
+
+                <!-- Notification Icon with Badge -->
+                <div class="notification-icon" id="notificationIcon">
+                    <!-- Backend: Get unread notification count from DB -->
+                    <span class="notification-badge" id="notificationBadge">3</span>
+                    <img src="../assets/Images/notification-icon.svg" alt="Notifications" class="notification-img">
+                </div>
+
+                <!-- User Profile Dropdown -->
+                <div class="user-profile" id="userProfile">
+                    <!-- Backend: Get user data from session -->
+                    <img src="../assets/Images/profile-icon.png" alt="User" class="profile-img" id="userAvatar">
+                    <span class="username" id="displayUsername">@username</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <nav class="nav-tabs">
+            <button class="nav-tab active" data-section="dashboard">Dashboard</button>
+            <a href="../users/index.php" class="nav-tab">Marketplace</a>
+            <button class="nav-tab" data-section="services">Services</button>
+        </nav>
+    </header>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="section-content active">
+        <div class="dashboard-container">
+            <!-- 
+            Backend Integration: User Statistics
+            SQL Query Example:
+            SELECT 
+                COUNT(CASE WHEN status = 'active' AND type = 'marketplace' THEN 1 END) as active_marketplace,
+                COUNT(CASE WHEN status = 'active' AND type = 'service' THEN 1 END) as active_services,
+                (SELECT COUNT(*) FROM vouches WHERE receiver_id = ?) as total_vouches,
+                (SELECT COUNT(*) FROM likes WHERE post_user_id = ?) as total_likes
+            FROM posts WHERE user_id = ?
+            -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number" id="activeListings" data-user-id="">3</div>
+                    <div class="stat-label">Active Listings</div>
+                    <div class="stat-sublabel" id="listingsBreakdown">3 marketplace | 0 service</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalVouches">40</div>
+                    <div class="stat-label">Total Vouches</div>
+                    <div class="stat-sublabel" id="vouchesThisMonth">+8 this month</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="totalLikes">47</div>
+                    <div class="stat-label">Total Likes</div>
+                    <div class="stat-sublabel" id="likesThisWeek">+5 this week</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="servicesActive">1</div>
+                    <div class="stat-label">Services Active</div>
+                    <div class="stat-sublabel">1 service</div>
+                </div>
+            </div>
+
+            <!-- Current Marketplace Listings -->
+            <!-- 
+            Backend: Get user's active marketplace listings
+            SQL: SELECT * FROM posts WHERE user_id = ? AND type = 'marketplace' AND status = 'active' ORDER BY created_at DESC LIMIT 5
+            -->
+            <div class="dashboard-section">
+                <h3>Your Active Marketplace Listings</h3>
+                <div class="listings-container" id="marketplaceListings">
+                    <!-- Sample listing - Replace with PHP loop -->
+                    <div class="listing-card" data-listing-id="1" data-post-type="marketplace">
+                        <img src="../assets/Images/placeholder-product.jpg" alt="MacBook M4 Chip H1 2023" class="listing-image">
+                        <div class="listing-info">
+                            <h4>MacBook M4 Chip H1 2023</h4>
+                            <p>Barely used MacBook with M4 chip. Perfect for programming and design work.</p>
+                            <div class="listing-meta">
+                                <span class="listing-price">₱33,000</span>
+                                <span class="listing-views">
+                                    <img src="../assets/Images/eye-icon.svg" alt="Views" style="width: 16px; height: 16px; margin-right: 4px;">
+                                    24 views
+                                </span>
+                                <span class="listing-likes">
+                                    <img src="../assets/Images/heart-icon.svg" alt="Likes" style="width: 16px; height: 16px; margin-right: 4px;">
+                                    5 likes
+                                </span>
+                            </div>
+                        </div>
+                        <div class="listing-actions">
+                            <button class="btn-edit" data-action="edit" data-id="1">
+                                <img src="../assets/Images/pencil-icon.png" alt="Edit" class="action-icon">
+                            </button>
+                            <button class="btn-delete" data-action="delete" data-id="1">
+                                <img src="../assets/Images/trash-can-icon.png" alt="Delete" class="action-icon">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="no-listings" id="noMarketplaceListings" style="display: none;">
+                    <p>You don't have any active marketplace listings yet.</p>
+                    <button class="btn-secondary" onclick="openCreatePostModal('marketplace')">Create Your First
+                        Listing</button>
+                </div>
+            </div>
+
+            <!-- Current Service Listings -->
+            <!-- 
+            Backend: Get user's active service listings  
+            SQL: SELECT * FROM posts WHERE user_id = ? AND type = 'service' AND status = 'active' ORDER BY created_at DESC LIMIT 5
+            -->
+            <div class="dashboard-section">
+                <h3>Your Active Service Listings</h3>
+                <div class="services-container" id="serviceListings">
+                    <!-- Sample service - Replace with PHP loop -->
+                    <div class="service-card" data-service-id="1" data-post-type="service">
+                        <div class="service-icon">💰</div>
+                        <div class="service-info">
+                            <h4>Math Tutoring & Logo Design</h4>
+                            <p>Advanced mathematics tutoring and professional logo design. 3 years experience, helped
+                                50+ students.</p>
+                            <div class="service-meta">
+                                <span class="service-price">₱100/hr</span>
+                                <span class="service-orders">
+                                    <img src="../assets/Images/calendar-icon.svg" alt="Orders" style="width: 16px; height: 16px; margin-right: 4px;">
+                                    12 orders
+                                </span>
+                                <span class="service-rating">⭐ 4.9 (25 reviews)</span>
+                            </div>
+                        </div>
+                        <div class="service-actions">
+                            <button class="btn-edit" data-action="edit" data-id="1">
+                                <img src="../assets/Images/pencil-icon.png" alt="Edit" class="action-icon">
+                            </button>
+                            <button class="btn-delete" data-action="delete" data-id="1">
+                                <img src="../assets/Images/trash-can-icon.png" alt="Delete" class="action-icon">
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="no-services" id="noServiceListings" style="display: none;">
+                    <p>You don't have any active service listings yet.</p>
+                    <button class="btn-secondary" onclick="openCreatePostModal('service')">Create Your First
+                        Service</button>
+                </div>
+            </div>
+
+            <!-- Recent Activity Section -->
+            <!-- 
+            Backend: Get user's recent activity
+            SQL: SELECT * FROM activities WHERE user_id = ? ORDER BY created_at DESC LIMIT 10
+            Activity types: like_received, vouch_received, post_created, post_viewed, order_completed
+            -->
+            <div class="dashboard-section">
+                <h3>Recent Activity</h3>
+                <div class="activity-list" id="recentActivity">
+                    <!-- Activities will be loaded via JavaScript/PHP -->
+                </div>
+                <div class="activity-pagination">
+                    <button class="btn-link" id="loadMoreActivity">Load More Activity</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section (Placeholder) -->
+    <section id="services" class="section-content">
+        <div class="services-container">
+            <div class="coming-soon">
+                <h2>Services Section</h2>
+                <p>This section will be implemented with your services details.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Create Post Modal -->
+    <!-- 
+    Backend: Form submission to /api/posts/create
+    Required fields depend on post type (marketplace vs service)
+    -->
+    <div id="createPostModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create New Post</h2>
+                <span class="close" id="closeModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Share your items or services with the ONE-TiP community</p>
+
+                <!-- Post Type Selection -->
+                <div class="post-type-selection">
+                    <button class="post-type-btn active" data-type="marketplace" id="marketplaceBtn">Marketplace
+                        Item</button>
+                    <button class="post-type-btn" data-type="service" id="serviceBtn">Service Offer</button>
+                </div>
+
+                <!-- Dynamic Form Container -->
+                <div id="createPostForm">
+                    <!-- Forms will be loaded here via JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Notification Panel -->
+    <!-- 
+    Backend: Get notifications from database
+    SQL: SELECT * FROM notifications WHERE user_id = ? ORDER BY created_at DESC
+    -->
+    <div id="notificationPanel" class="notification-panel">
+        <div class="notification-header">
+            <h3>Notifications</h3>
+            <span class="notification-count" id="notificationCount">3 unread notifications</span>
+            <div class="notification-actions">
+                <button class="notification-btn active" data-filter="all">All</button>
+                <button class="notification-btn" data-filter="unread">Unread (3)</button>
+                <button class="notification-btn" id="markAllRead">Mark all read</button>
+            </div>
+        </div>
+        <div class="notification-list" id="notificationList">
+            <!-- Notifications will be loaded here via JavaScript -->
+        </div>
+    </div>
+
+    <!-- User Profile Dropdown -->
+    <div id="userProfileDropdown" class="profile-dropdown">
+        <div class="profile-header">
+            <img src="../assets/Images/profile-icon.png" alt="User" class="dropdown-avatar">
+            <div class="profile-details">
+                <div class="profile-name" id="profileName">Francia Ruz</div>
+                <div class="profile-email" id="profileEmail">mfaruzgal@tip.edu.ph</div>
+            </div>
+        </div>
+        <div class="profile-menu">
+            <a href="#" class="menu-item" data-action="edit-profile">
+                <img src="../assets/Images/profile-icon.svg" alt="Edit Profile" class="menu-icon-img">
+                Edit Profile
+            </a>
+            <a href="#" class="menu-item" data-action="settings">
+                <img src="../assets/Images/gear-icon.svg" alt="Settings" class="menu-icon-img">
+                Settings
+            </a>
+            <a href="#" class="menu-item" data-action="help">
+                <img src="../assets/Images/question-mark-icon.svg" alt="Help" class="menu-icon-img">
+                Help & Support
+            </a>
+            <hr>
+            <a href="#" class="menu-item" data-action="logout">
+                <img src="../assets/Images/exit-icon.svg" alt="Logout" class="menu-icon-img">
+                Logout
+            </a>
+        </div>
+    </div>
+
+    <!-- Product Details Modal -->
+    <div id="productModal" class="modal product-modal">
+        <div class="modal-content product-modal-content">
+            <span class="close product-modal-close" id="closeProductModal">&times;</span>
+
+            <div class="product-modal-body">
+                <div class="product-image-section">
+                    <div class="product-main-image" id="productMainImage">
+                        <!-- Main product image will be loaded here -->
+                    </div>
+                </div>
+
+                <div class="product-details-section">
+                    <div class="product-header">
+                        <h2 id="productTitle">Product Name</h2>
+                        <p class="product-listing-date" id="productDate">Listed 9 days ago</p>
+                    </div>
+
+                    <div class="product-price-section">
+                        <div class="price-badge">
+                            <span class="product-price" id="productPrice">₱9,999</span>
+                            <span class="price-type" id="priceType">Negotiable - Cash on meetup</span>
+                        </div>
+                    </div>
+
+                    <div class="product-description">
+                        <h4>Description</h4>
+                        <p id="productDescription">Product description will be displayed here...</p>
+                    </div>
+
+                    <div class="seller-info-section">
+                        <h4>Seller Information</h4>
+                        <div class="seller-card">
+                            <div class="seller-avatar">
+                                <img id="sellerAvatar" src="../assets/Images/profile-icon.png" alt="Seller"
+                                    class="seller-profile-img">
+                            </div>
+                            <div class="seller-details">
+                                <div class="seller-name" id="sellerName">John Doe</div>
+                                <div class="seller-department" id="sellerDepartment">CCS Department</div>
+                                <div class="seller-rating">
+                                    <span class="rating-stars" id="sellerRating">★★★★★</span>
+                                    <span class="rating-count" id="ratingCount">(15 vouches)</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="contact-availability">
+                            <div class="availability-item">
+                                <strong>Chat availability:</strong>
+                                <span id="chatAvailability">8:00 am - 9:00 pm</span>
+                            </div>
+                            <div class="availability-item">
+                                <strong>Meetup:</strong>
+                                <span id="meetupAvailability">Weekdays - Cash / Arlegui Campus</span>
+                            </div>
+                        </div>
+
+                        <div class="contact-buttons">
+                            <button class="btn-contact btn-facebook" id="contactFacebook">
+                                <img src="../assets/Images/facebook-icon.svg" alt="Facebook" class="contact-icon">
+                                Facebook
+                            </button>
+                            <button class="btn-contact btn-email" id="contactEmail">
+                                <img src="../assets/Images/email-icon.svg" alt="Email" class="contact-icon">
+                                Email
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Files -->
+    <script src="assets/js/auth.js"></script>
+    <script src="../assets/script/dashboard.js"></script>
+    <script src="../assets/script/create-post.js"></script>
+    <script src="../assets/script/notifications.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ONE-TiP - Edit Profile</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/dashboard.css">
+</head>
+<body>
+    <div class="container">
+        <div class="left-panel">
+            <img src="Images/TIPImage-Login.jpg" alt="School Building" class="background-image">
+        </div>
+        <div class="right-panel">
+            <div class="form-container">
+                <div class="logo">
+                    <img src="Images/LOGO-LONG.png" alt="ONE-TiP" class="logo-img">
+                </div>
+                <p class="subtitle">Update your profile</p>
+                
+                <div class="icon-circle profile-icon">
+                    <img src="Images/profile-icon.svg" alt="Profile" class="icon-img">
+                </div>
+                
+                <h2>Edit Profile</h2>
+                <p class="description">Keep your information up to date</p>
+                
+                <form id="editProfileForm" class="edit-profile-form" action="backend/update-profile.php" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="action" value="update_profile">
+                    <input type="hidden" name="csrf_token" id="csrfToken" value="">
+                    
+                    <div class="profile-photo-section">
+                        <div class="current-photo">
+                            <img src="Images/profile-icon.png" alt="Current Profile" id="currentProfilePhoto">
+                        </div>
+                        <div class="photo-upload">
+                            <label for="profilePhoto" class="upload-label">
+                                <img src="Images/folder-icon.svg" alt="Upload" style="width: 20px; height: 20px;">
+                                Change Photo
+                            </label>
+                            <input type="file" id="profilePhoto" name="profile_photo" accept="image/*" style="display: none;">
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="input-group half">
+                            <label for="editFirstName">First Name:</label>
+                            <input type="text" id="editFirstName" name="first_name" required maxlength="50">
+                        </div>
+                        <div class="input-group half">
+                            <label for="editLastName">Last Name:</label>
+                            <input type="text" id="editLastName" name="last_name" required maxlength="50">
+                        </div>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="editUsername">Username:</label>
+                        <input type="text" id="editUsername" name="username" required pattern="[a-zA-Z0-9_]{3,20}" readonly>
+                        <small>Username cannot be changed after registration</small>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="editEmail">Email Address:</label>
+                        <input type="email" id="editEmail" name="email" required readonly>
+                        <small>Email cannot be changed. Contact support if needed.</small>
+                    </div>
+                    
+                    <div class="input-group">
+                        <label for="editBio">Bio:</label>
+                        <textarea id="editBio" name="bio" placeholder="Tell others about yourself..." rows="4" maxlength="500"></textarea>
+                        <small id="bioCount">0/500 characters</small>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="input-group half">
+                            <label for="editDepartment">Department:</label>
+                            <select id="editDepartment" name="department" required>
+                                <option value="college_of_arts">College of Arts</option>
+                                <option value="college_of_engineering">College of Engineering and Architecture</option>
+                                <option value="college_of_computer_science">College of Computer Science</option>
+                                <option value="college_of_business">College of Business Education</option>
+                            </select>
+                        </div>
+                        <div class="input-group half">
+                            <label for="editCampus">Campus:</label>
+                            <select id="editCampus" name="campus">
+                                <option value="arlegui">Arlegui Campus</option>
+                                <option value="casal">Casal Campus</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <a href="dashboard.html" class="btn-secondary">Cancel</a>
+                        <button type="submit" class="btn-primary" id="saveProfileBtn">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <script src="assets/js/edit-profile.js"></script>
+</body>
+</html>

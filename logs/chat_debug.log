@@ -1,0 +1,4 @@
+2025-11-16 14:41:15 - Request: {"action":"create_chat","seller_id":"24","item_id":"4","item_type":"service"}
+Action: create_chat, User: 23
+2025-11-16 14:41:31 - Request: {"action":"create_chat","seller_id":"24","item_id":"20","item_type":"marketplace"}
+Action: create_chat, User: 23

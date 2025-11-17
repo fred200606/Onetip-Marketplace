@@ -1,0 +1,791 @@
+/* Services Section Styles */
+.services-main {
+    padding: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Services Banner */
+.services-banner {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    text-align: center;
+    margin-bottom: 3rem;
+    position: relative;
+}
+
+.services-logo {
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 1.5rem;
+    filter: brightness(0) invert(1);
+}
+
+.services-banner h1 {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.services-banner p {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+/* Services Filter Section */
+.services-filter-section {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.services-filter-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    align-items: end;
+}
+
+.services-filter-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.services-filter-group label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+.services-filter-select {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    background: #f8f9fa;
+    transition: border-color 0.3s;
+    font-family: 'Poppins', sans-serif;
+}
+
+.services-filter-select:focus {
+    outline: none;
+    border-color: #007bff;
+    background: white;
+}
+
+/* Services Grid */
+.services-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+/* Service Card */
+.service-card {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.service-info {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.service-price {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #007bff;
+    margin-bottom: 8px;
+}
+
+.service-provider {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 15px;
+}
+
+.view-service-btn {
+    margin-top: auto;
+    width: 100%;
+}
+
+.service-card-content {
+    padding: 1.5rem;
+}
+
+.service-card-header {
+    margin-bottom: 1rem;
+}
+
+.service-card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.service-card-provider {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 1rem;
+}
+
+.service-card-description {
+    margin-bottom: 1rem;
+}
+
+.service-card-description p {
+    color: #666;
+    line-height: 1.4;
+    font-size: 0.9rem;
+}
+
+.service-card-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.service-card-price {
+    font-weight: 700;
+    color: #007bff;
+    font-size: 1.1rem;
+}
+
+.service-card-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.9rem;
+}
+
+.service-card-rating .stars {
+    color: #ffc107;
+}
+
+.service-card-rating .rating {
+    font-weight: 600;
+    color: #333;
+}
+
+.service-card-rating .reviews {
+    color: #666;
+}
+
+.service-card-footer {
+    border-top: 1px solid #eee;
+    padding-top: 1rem;
+}
+
+.service-card-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.service-tag {
+    background: #e9ecef;
+    color: #666;
+    padding: 0.25rem 0.75rem;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 500;
+}
+
+/* Service Modal Styles - SMOOTH ANIMATIONS */
+.service-modal {
+    display: none;
+    position: fixed;
+    z-index: 3000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(0px);
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease, backdrop-filter 0.3s ease;
+}
+
+/* ✅ ADD: Smooth fade-in animation */
+.service-modal.modal-show {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+}
+
+.service-modal-content {
+    background: white;
+    width: 95%;
+    max-width: 1000px;
+    max-height: 90vh;
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin: 2% auto;
+    opacity: 0;
+    transform: scale(0.95) translateY(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* ✅ ADD: Content animation when modal shows */
+.service-modal.modal-show .service-modal-content {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+}
+
+/* ✅ OPTIMIZE: Use GPU acceleration */
+.service-modal,
+.service-modal-content,
+.service-modal-body {
+    will-change: transform, opacity;
+}
+
+/* ✅ Smooth close button */
+.service-modal-close {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #666;
+    cursor: pointer;
+    z-index: 10;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    border: none;
+}
+
+.service-modal-close:hover {
+    background: rgba(255, 255, 255, 1);
+    color: #333;
+    transform: scale(1.1) rotate(90deg);
+}
+
+/* ✅ Optimize modal body for smooth scrolling */
+.service-modal-body {
+    display: flex;
+    min-height: 600px;
+    overflow: hidden;
+}
+
+/* ✅ Add smooth scroll for sections */
+.service-portfolio-section,
+.service-details-section {
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+}
+
+/* ✅ Optimize image loading */
+.portfolio-gallery img {
+    transition: transform 0.3s ease;
+}
+
+.portfolio-gallery img:hover {
+    transform: scale(1.05);
+}
+
+.service-portfolio-section {
+    flex: 1;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: auto;
+}
+
+.service-portfolio-header {
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.service-portfolio-header h3 {
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-weight: 600;
+    font-size: 1.3rem;
+}
+
+.service-portfolio-header p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.portfolio-gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.portfolio-item {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    text-align: center;
+    transition: all 0.3s;
+    cursor: pointer;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border: 2px solid transparent;
+}
+
+.portfolio-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    border-color: #007bff;
+}
+
+.portfolio-item.clickable {
+    border-color: #007bff;
+    background: linear-gradient(135deg, #fff, #f8f9ff);
+}
+
+.portfolio-image {
+    font-size: 2.5rem;
+    margin-bottom: 0.75rem;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.portfolio-title {
+    font-size: 0.85rem;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
+
+.portfolio-link {
+    font-size: 0.75rem;
+    color: #007bff;
+    text-decoration: none;
+    display: block;
+    margin-top: 0.5rem;
+    padding: 0.25rem 0.5rem;
+    background: rgba(0, 123, 255, 0.1);
+    border-radius: 10px;
+    transition: all 0.3s;
+}
+
+.portfolio-link:hover {
+    background: rgba(0, 123, 255, 0.2);
+    color: #0056b3;
+}
+
+.portfolio-link i {
+    margin-right: 0.25rem;
+}
+
+.service-details-section {
+    flex: 1;
+    padding: 2rem;
+    overflow-y: auto;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.service-header h2 {
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+
+.service-listing-date {
+    color: #888;
+    font-size: 0.9rem;
+    margin-bottom: 1.5rem;
+}
+
+.service-price-section {
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+    padding: 1.25rem 0;
+}
+
+.service-price-badge {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.service-price {
+    display: block;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #007bff;
+    margin-bottom: 0.5rem;
+}
+
+.service-delivery-time,
+.service-price-type {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 0.25rem;
+}
+
+.service-description {
+    margin-bottom: 2rem;
+}
+
+.service-description h4 {
+    margin-bottom: 1rem;
+    color: #333;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.service-description p {
+    color: #666;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.service-provider-section {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 12px;
+}
+
+.service-provider-section h4 {
+    margin-bottom: 1rem;
+    color: #333;
+    font-weight: 600;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.service-provider-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.service-provider-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #e9ecef;
+}
+
+.service-provider-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.service-provider-details {
+    flex: 1;
+}
+
+.service-provider-name {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 0.15rem;
+}
+
+.service-provider-department {
+    font-size: 0.85rem;
+    color: #666;
+    margin-bottom: 0.4rem;
+}
+
+.service-provider-rating {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.service-rating-stars {
+    color: #ffc107;
+    font-size: 1rem;
+    letter-spacing: 1px;
+}
+
+.service-rating-count {
+    font-size: 0.85rem;
+    color: #666;
+}
+
+.service-contact-availability {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.service-availability-item {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0.4rem 0;
+    font-size: 0.9rem;
+    line-height: 1.4;
+}
+
+.service-availability-item:last-child {
+    margin-bottom: 0;
+}
+
+.service-availability-item strong {
+    color: #333;
+    min-width: 140px;
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.service-availability-item span {
+    color: #666;
+    flex: 1;
+}
+
+.service-contact-buttons {
+    display: flex;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.service-btn-contact {
+    flex: 1;
+    min-width: 120px;
+    padding: 0.7rem 1rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    font-family: 'Poppins', sans-serif;
+}
+
+.service-btn-facebook {
+    background: linear-gradient(135deg, #1877f2, #0d47a1);
+    color: white;
+}
+
+.service-btn-facebook:hover {
+    background: linear-gradient(135deg, #166fe5, #0c3d91);
+    transform: translateY(-2px);
+}
+
+.service-btn-email {
+    background: linear-gradient(135deg, #34a853, #137333);
+    color: white;
+}
+
+.service-btn-email:hover {
+    background: linear-gradient(135deg, #2d9249, #0f5132);
+    transform: translateY(-2px);
+}
+
+.service-btn-vouch {
+    background: #28a745 !important;
+    color: white !important;
+}
+
+.service-btn-vouch:hover {
+    background: #1e7e34 !important;
+    transform: translateY(-2px);
+}
+
+.service-btn-rate {
+    background: #ffc107 !important;
+    color: #333 !important;
+}
+
+.service-btn-rate:hover {
+    background: #e0a800 !important;
+    transform: translateY(-2px);
+}
+
+.service-contact-icon {
+    width: 16px;
+    height: 16px;
+    filter: brightness(0) invert(1);
+}
+
+/* Custom scrollbar for service modal */
+.service-portfolio-section::-webkit-scrollbar,
+.service-details-section::-webkit-scrollbar {
+    width: 6px;
+}
+
+.service-portfolio-section::-webkit-scrollbar-track,
+.service-details-section::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.service-portfolio-section::-webkit-scrollbar-thumb,
+.service-details-section::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.service-portfolio-section::-webkit-scrollbar-thumb:hover,
+.service-details-section::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+/* Responsive Design */
+@media (max-width: 992px) {
+    .service-modal-body {
+        flex-direction: column;
+    }
+    
+    .service-portfolio-section {
+        min-height: 300px;
+        max-height: 400px;
+    }
+    
+    .portfolio-gallery {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .service-details-section {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 600px) {
+    .service-modal-content {
+        width: 95%;
+        max-height: 95vh;
+    }
+    
+    .portfolio-gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .service-contact-buttons {
+        flex-direction: column;
+    }
+    
+    .service-btn-contact {
+        width: 100%;
+    }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .services-main {
+        padding: 1rem;
+    }
+
+    .services-banner {
+        padding: 2rem 1rem;
+        border-radius: 15px;
+    }
+
+    .services-banner h1 {
+        font-size: 2rem;
+    }
+
+    .services-logo {
+        height: 140px;
+        content: url('../../Images/LOGO-WHITE.png');
+    }
+
+    .services-filter-row {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .service-modal-body {
+        flex-direction: column;
+    }
+
+    .service-portfolio-section {
+        min-height: 250px;
+    }
+
+    .service-contact-buttons {
+        flex-direction: column;
+    }
+
+    .portfolio-gallery {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+
+
+/* ADDED CSS BY AMIEL  */
+.service-image img {
+    max-width: 100%;
+    max-height: 50px;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+    border-radius: 8px;
+}
